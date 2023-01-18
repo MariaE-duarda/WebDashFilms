@@ -74,5 +74,5 @@ def pegar_dados(info):
 link = pegar_link(site)
 dados1 = pegar_dados(link)
 df = pd.DataFrame(dados1, columns=['titulo', 'Ano lançamento', 'Descrição', 'Nota', 'Diretor', 'Votos', 'Genero'])
-df.to_csv("1400-filmes.csv")
+df.to_csv("1400-filmes.csv", index=False)
 print(df)
