@@ -1,29 +1,31 @@
-import dash 
-from dash import html, dcc, no_update
+import os
+import dash
+from dash import html, dcc
 from dash.dependencies import Input, Output, State
-import dash_core_components as dcc
-import dash_bootstrap_components as dbc 
-from dash import Input, Output, html, no_update
-from app import app 
-from dash_bootstrap_templates import ThemeSwitchAIO
+import dash_bootstrap_components as dbc
+from app import app
 
-import plotly.express as px 
-import numpy as np 
-import pandas as pd 
-
-template_theme1 = "bootstrap"
-template_theme2 = "darkly"
-url_theme1 = dbc.themes.BOOTSTRAP
-url_theme2 = dbc.themes.DARKLY
+from datetime import datetime, date
+import plotly.express as px
+import numpy as np
+import pandas as pd
 
 # ========= Layout ========= #
-layout = dbc.Col([ 
-    dbc.Card([
-        html.H2('Dashboard IBGE', className='title'),
-        dbc.Nav([
-            dbc.NavLink('Tela principal', className='button title',href='/dados/geral', active='exact', style={'border':'none', 'border-radius':'5px', 'background-color':'#181818', 'color':'white', 'height':'35px', 'font-size':'17px', 'width':'80%', 'text-align':'center', 'margin-left':'10%'}),
-            dbc.NavLink('Tela secundária', className='button title', href='/dados/paraiba', active='exact', style={'border':'none', 'border-radius':'5px', 'background-color':'#181818', 'color':'white', 'margin-top':'5px', 'height':'35px', 'font-size':'17px', 'width':'80%', 'text-align':'center', 'margin-left':'10%'}),
-            dbc.NavLink('Tela terciária', className='button title', href='/dados/amazonas', active='exact', style={'border':'none', 'border-radius':'5px', 'background-color':'#181818', 'color':'white', 'margin-top':'5px', 'height':'35px', 'font-size':'17px', 'width':'80%', 'text-align':'center', 'margin-left':'10%'}),
-        ]),
-    ]),
-], id='sidebar_completa')
+layout = dbc.Col([
+        html.H1('Venda de games', className='text-primary'),
+        html.P('By Tópicos Especiais de Info', className='text-info'),
+        html.Hr(),
+
+#Seção perfil
+        dbc.Button(id='botao_avatar',
+        children=[html.Img(src='/assets/Game-Icon.png', id='avatar_change', alt='Avatar', className='perfil_avatar')], 
+        style={'background-color':'transparent', 'border-color':'transparent', 'margin-left':'18%'}),
+        html.Button('Acessar dashboard', className='button-git', style={'margin-left':'15%'}),
+        ], id='sidebar_completa', style={'border':'1px solid #c4c4c4'})
+
+
+
+
+
+# =========  Callbacks  =========== #
+# Pop-up receita

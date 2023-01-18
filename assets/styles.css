@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
-
 #sidebar_completa{
     height: 100vh;
     margin: 0px;
@@ -7,16 +5,12 @@
     /* background-image: url('back_sidebar4.png'); */
 }
 
-.title{
-    font-family: 'Raleway';
-}
-
 .row{
     --bs-gutter-x: 0rem !important;
 }
 
 .card{
-    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .perfil_avatar{
@@ -33,20 +27,27 @@
     border: 0px transparent solid;
 }
 
-#rangeslider{
-    margin-top: 15px;
-    
-}
-
-.button:hover{
-    background-color: red;
-}
-
-.badge{
-    transition: .5s;
-    background: black;
-}
-.badge:hover{
+.button-git{
+    border: none;
+    font-weight: 500;
+    border-radius: 10px;
+    height: 45px;
+    width: 200px;
+    font-size: 20px;
+    background-color: rgba(77, 77, 253, 0.788);
     color: white;
-    background: cornflowerblue;
+    margin-top: 10px;
+    transition: .4s;
+}
+
+.button-git:hover{
+    background-color: rgba(16, 16, 250, 0.664);
+}
+
+legend{
+    font-weight: 600;
+}
+
+h6{
+    font-size: 19px;
 }
