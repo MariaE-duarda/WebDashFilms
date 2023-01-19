@@ -14,15 +14,28 @@ import pandas as pd
 layout = dbc.Col([
         dbc.Card([
                 html.H1('Lista de Filmes', className='text-primary'),
-                html.P('By Tópicos Especiais de Info', className='text-info'),
+                html.P('Tópicos Especiais de Informática', className='text-info'),
                 html.Hr(),
 
         #Seção perfil
                 dbc.Button(id='botao_avatar',
-                children=[html.Img(src='/assets/Game-Icon.png', id='avatar_change', alt='Avatar', className='perfil_avatar')], 
+                children=[html.Img(src='/assets/filme.png', id='avatar_change', alt='Avatar', className='perfil_avatar')], 
                 style={'background-color':'transparent', 'border-color':'transparent'}),
-                html.Button('Acessar dashboard', className='button-git', style={'margin-left':'15%'}),
-        ], id='sidebar_completa', style={'margin-top':'10px', 'text-align':'center'}),
+                html.Button('Acessar dashboard', className='button-git'),
+                html.Button('Informações', className='button-git', id="open", n_clicks=0),
+                dbc.Modal([
+                        dbc.ModalHeader(dbc.ModalTitle("Informações")),
+                        dbc.ModalBody("Projeto final de Tópicos de informática"),
+                        dbc.ModalFooter(
+                        dbc.Button(
+                                "Fechar", id="close", className="ms-auto", n_clicks=0, style={'color':'black'}
+                        )),
+                ],
+                id="modal",
+                #size="lg",
+                is_open=False,
+                ),
+        ], id='sidebar_completa', style={'margin-top':'15px', 'text-align':'center'}),
         ])
 
 
@@ -31,3 +44,12 @@ layout = dbc.Col([
 
 # =========  Callbacks  =========== #
 # Pop-up receita
+@app.callback(
+    Output("modal", "is_open"),
+    [Input("open", "n_clicks"), Input("close", "n_clicks")],
+    [State("modal", "is_open")],
+)
+def toggle_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open

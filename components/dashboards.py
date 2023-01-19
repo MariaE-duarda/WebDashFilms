@@ -6,12 +6,10 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-import calendar
 from globals import *
 from app import app
 
-
-df = pd.read_csv('vgsales.csv')
+df = pd.read_csv('')
 
 df_NA_Sales = df.groupby('NA_Sales').sum().reset_index()
 df_EU_Sales = df.groupby('EU_Sales').sum().reset_index()
@@ -43,8 +41,6 @@ card_icon = {
     "fontSize": 30, 
     "margin":"auto",
 }
-
-
 
 # =========  Layout  =========== #
 layout = dbc.Col([
