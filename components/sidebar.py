@@ -28,13 +28,15 @@ layout = dbc.Col([
                         dbc.ModalBody("Projeto final de Tópicos de informática"),
                         dbc.ModalFooter(
                         dbc.Button(
-                                "Fechar", id="close", className="ms-auto", n_clicks=0, style={'color':'black'}
+                                "Fechar", id="close", className="ms-auto", n_clicks=0, style={'color':'white', 'border-radius':'10px'}
                         )),
                 ],
                 id="modal",
                 #size="lg",
                 is_open=False,
                 ),
+                html.Button('Site usado',className='button-git'),
+
         ], id='sidebar_completa', style={'margin-top':'15px', 'text-align':'center'}),
         ])
 
