@@ -12,6 +12,9 @@ from app import app
 
 df = pd.read_csv('1400-filmes.csv')
 
+df = df.sort_values('Nota', ascending=False)
+df = df.drop_duplicates(subset='Titulo')
+
 df_ano = df.groupby('Ano').sum().reset_index()
 df_nota = df.groupby('Nota').sum().reset_index()
 df_votos = df.groupby('Votos').sum().reset_index()
