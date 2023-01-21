@@ -12,21 +12,30 @@ from app import app
 
 df = pd.read_csv('1400-filmes.csv')
 
-df = df.sort_values('Nota', ascending=False)
-df = df.drop_duplicates(subset='Titulo')
+df = df.sort_values('Titulo', ascending=False)
+df = df.drop_duplicates(subset='Titulo') 
+
+# menor ano 1959
+# maior ano 2023
 
 df_ano = df.groupby('Ano').sum().reset_index()
 df_nota = df.groupby('Nota').sum().reset_index()
 df_votos = df.groupby('Votos').sum().reset_index()
 
-trace = df_nota.groupby('Nota')['Titulo'].sum().tail(10).reset_index()
+trace = df.groupby('Nota')['Titulo'].sum().tail(10).reset_index()
 fig = px.bar(df, x=trace['Nota'].unique(), y=trace['Titulo'].unique())
 
-trace_piores = df_nota.groupby('Nota')['Titulo'].sum().head(10).reset_index()
+trace_piores = df.groupby('Nota')['Titulo'].sum().head(10).reset_index()
 fig_02 = px.bar(df, x=trace_piores['Nota'].unique(), y=trace_piores['Titulo'].unique())
 
 fig.update_layout(height=280, xaxis={'title': None}, yaxis={'title': None})
 fig_02.update_layout(height=280, xaxis={'title': None}, yaxis={'title': None})
+
+fig_03 = px.pie(
+        df_votos, values='Votos', 
+        names='Nota', hole=.3)
+
+fig_03.update_layout(height=280, xaxis={'title': None}, yaxis={'title': None})
 
 card_icon = {
     "color": "white",
@@ -57,32 +66,23 @@ layout = dbc.Col([
     ]), 
 
        dbc.Row([
-        dbc.Col([
-            dbc.Card([
-                dcc.RangeSlider(0, 20, 1, value=[5, 15], id='my-range-slider'),
-                html.Div(id='output-container-range-slider')
-            ], style={'margin-top': '10px', 'margin-left': '10px'})
-        ], width=12)
-       ]),
-
-       dbc.Row([
             dbc.Col([
                 dbc.Card([
                     dbc.Tabs([
                         dcc.Tab(label='Melhores Avaliações', children=[
                             dcc.Graph(id='graph2', className='dbc', config={"displayModeBar": False, "showTips": False}, figure=fig),
-                            dbc.Button("Abrir modal", id="open2", n_clicks=0, style={'border':'none', 'border-radius':'5px', 'width':'95%', 'margin-left':'10px', 'margin-top':'5px', 'margin-bottom':'10px'}),
+                            dbc.Button("Abrir modal", id="open4", n_clicks=0, style={'border':'none', 'border-radius':'5px', 'width':'95%', 'margin-left':'10px', 'margin-top':'5px', 'margin-bottom':'10px'}),
                             dbc.Modal(
                             [
                                 dbc.ModalHeader(dbc.ModalTitle("Melhores Avaliações:")),
                                 dbc.ModalBody(dcc.Graph(id='graph02', className='dbc', config={"displayModeBar": False, "showTips": False}, figure=fig)),
                                 dbc.ModalFooter(
                                     dbc.Button(
-                                        "Fechar", id="close2", className="ms-auto", n_clicks=0, style={'border-radius':'5px'}
+                                        "Fechar", id="close4", className="ms-auto", n_clicks=0, style={'border-radius':'5px'}
                                     )
                                 ),
                             ],
-                            id="modal2",
+                            id="modal4",
                             size="xl",
                             is_open=False,
                         ),
@@ -109,19 +109,18 @@ layout = dbc.Col([
         ], width=9),
         dbc.Col([
             dbc.Card([
-                dcc.Graph(id='graph')
+                html.H1('Votos X Nota', className='text-primary', style={'padding':'15px', 'padding-left':'30px'}) ,
+                dcc.Graph(id='graph_03', figure=fig_03, className='dbc', config={"displayModeBar": False, "showTips": False})
             ], style={'margin-top': '10px'})
         ], width=3)
     ]),
 ])
 
-
-
 # =========  Callbacks  =========== #
 @app.callback(
-    Output("modal2", "is_open"),
-    [Input("open2", "n_clicks"), Input("close2", "n_clicks")],
-    [State("modal2", "is_open")],
+    Output("modal4", "is_open"),
+    [Input("open4", "n_clicks"), Input("close4", "n_clicks")],
+    [State("modal4", "is_open")],
 )
 def toggle_modal(n1, n2, is_open):
     if n1 or n2:
