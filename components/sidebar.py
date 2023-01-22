@@ -37,7 +37,7 @@ layout = dbc.Col([
                 html.Button('Informações', className='button-git', id="open", n_clicks=0),
                 dbc.Modal([
                         dbc.ModalHeader(dbc.ModalTitle("Informações:", style={'font-weight':'bold'})),
-                        dbc.ModalBody("Projeto final da disciplina de Tópicos Especiais de Informática. \nRaspagem de dados e criação de dashboard com os dados estraidos.", style={'font-size':'20px'}),
+                        dbc.ModalBody("Projeto final da disciplina de Tópicos Especiais de Informática. \nRaspagem de dados e criação de dashboard com os dados extraidos.", style={'font-size':'20px'}),
                         dbc.ModalFooter(
                         dbc.Button(
                                 "Fechar", id="close", className="ms-auto", n_clicks=0, style={'color':'white', 'border-radius':'10px'}

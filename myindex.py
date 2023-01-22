@@ -18,7 +18,7 @@ app.layout = dbc.Container(children=[
             dashboards.layout
         ], md=10)
     ])
-], fluid=True,)
+], fluid=True)
 
 if __name__ == '__main__':
     app.run_server(debug=True)

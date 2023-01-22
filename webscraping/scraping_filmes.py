@@ -1,8 +1,11 @@
 from selenium import webdriver
+
+# importações para a respagem dos dados
 from bs4 import BeautifulSoup
-import requests
+import requests 
 import pandas as pd
 
+# link que foi utilizado 
 site = requests.get('https://m.imdb.com/feature/genre/?ref_=nv_ch_gr')
 
 def pegar_link(reqs):

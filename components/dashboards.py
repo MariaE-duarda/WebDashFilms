@@ -1,15 +1,25 @@
+# ===== IMPORTAÇÕES ==== #
 from dash import html, dcc
 from dash.dependencies import Input, Output, State
-from datetime import date, datetime, timedelta
 import dash_bootstrap_components as dbc
 import pandas as pd
-import numpy as np
 from dash import dash_table
 import plotly.express as px
 import plotly.graph_objects as go
-from globals import *
-from app import app
+from globals import * 
+from app import app 
 
+# ==== DICIONÁRIO DE VARIÁVEIS ===== # 
+# titulo - nome do filme; 
+# ano - ano de lançamento do filme
+# descrição - sinopse do filme; 
+# nota - avaliação dada ao filme; 
+# diretor - responsável do dirigir o filme; 
+# votos - quantidade de votos dada ao filme; 
+# genero - generos que o filme faz parte.
+
+
+# ===== TRATAMENTO DOS DADOS ==== # 
 df = pd.read_csv('1400-filmes.csv')
 
 df = df.sort_values('Titulo', ascending=False)
@@ -23,9 +33,10 @@ df_nota = df.groupby('Nota').sum().reset_index()
 df_votos = df.groupby('Votos').sum().reset_index()
 
 trace = df.groupby('Nota')['Titulo'].sum().tail(10).reset_index()
-fig = px.bar(df, x=trace['Nota'].unique(), y=trace['Titulo'].unique())
-
 trace_piores = df.groupby('Nota')['Titulo'].sum().head(10).reset_index()
+
+# ==== CRIAÇÃO DOS GRÁFICOS ===== # 
+fig = px.bar(df, x=trace['Nota'].unique(), y=trace['Titulo'].unique())
 fig_02 = px.bar(df, x=trace_piores['Nota'].unique(), y=trace_piores['Titulo'].unique())
 
 fig.update_layout(height=280, xaxis={'title': None}, yaxis={'title': None})
@@ -37,14 +48,7 @@ fig_03 = px.pie(
 
 fig_03.update_layout(height=280, xaxis={'title': None}, yaxis={'title': None})
 
-card_icon = {
-    "color": "white",
-    "textAlign":"center",
-    "fontSize": 30, 
-    "margin":"auto",
-}
-
-# =========  Layout  =========== #
+# =========  LAYOUT  =========== #
 layout = dbc.Col([
        dbc.Row([
         dbc.Col([
@@ -71,7 +75,7 @@ layout = dbc.Col([
                     dbc.Tabs([
                         dcc.Tab(label='Melhores Avaliações', children=[
                             dcc.Graph(id='graph2', className='dbc', config={"displayModeBar": False, "showTips": False}, figure=fig),
-                            dbc.Button("Abrir modal", id="open4", n_clicks=0, style={'border':'none', 'border-radius':'5px', 'width':'95%', 'margin-left':'10px', 'margin-top':'5px', 'margin-bottom':'10px'}),
+                            dbc.Button("Visualizar Grágico", id="open4", n_clicks=0, style={'border':'none', 'border-radius':'5px', 'width':'95%', 'margin-left':'10px', 'margin-top':'5px', 'margin-bottom':'10px'}),
                             dbc.Modal(
                             [
                                 dbc.ModalHeader(dbc.ModalTitle("Melhores Avaliações:")),
@@ -87,9 +91,10 @@ layout = dbc.Col([
                             is_open=False,
                         ),
                         ], style={'color':'white', 'background-color':'#181D3135'}),
+                        
                         dcc.Tab(label='Piores Avaliações', children=[
                             dcc.Graph(id='graph5', className='dbc', config={"displayModeBar": False, "showTips": False}, animate=True, figure=fig_02),
-                            dbc.Button("Abrir modal", id="open3", n_clicks=0, style={'border':'none', 'border-radius':'5px', 'width':'95%', 'margin-left':'10px', 'margin-top':'5px', 'margin-bottom':'10px'}),
+                            dbc.Button("Visualizar Gráfico", id="open3", n_clicks=0, style={'border':'none', 'border-radius':'5px', 'width':'95%', 'margin-left':'10px', 'margin-top':'5px', 'margin-bottom':'10px'}),
                         ]),
                         dbc.Modal([
                             dbc.ModalHeader(dbc.ModalTitle("Piores Avaliações:")),
