@@ -18,7 +18,6 @@ from app import app
 # votos - quantidade de votos dada ao filme; 
 # genero - generos que o filme faz parte.
 
-
 # ===== TRATAMENTO DOS DADOS ==== # 
 df = pd.read_csv('1400-filmes.csv')
 
@@ -91,7 +90,7 @@ layout = dbc.Col([
                             is_open=False,
                         ),
                         ], style={'color':'white', 'background-color':'#181D3135'}),
-                        
+
                         dcc.Tab(label='Piores Avaliações', children=[
                             dcc.Graph(id='graph5', className='dbc', config={"displayModeBar": False, "showTips": False}, animate=True, figure=fig_02),
                             dbc.Button("Visualizar Gráfico", id="open3", n_clicks=0, style={'border':'none', 'border-radius':'5px', 'width':'95%', 'margin-left':'10px', 'margin-top':'5px', 'margin-bottom':'10px'}),
