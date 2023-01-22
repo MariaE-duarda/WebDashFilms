@@ -1,3 +1,4 @@
+# ======== IMPORTAÇÕES ====== # 
 import os
 import dash
 from dash import html, dcc
@@ -65,11 +66,9 @@ layout = dbc.Col([
         ])
 
 
-
-
-
 # =========  Callbacks  =========== #
-# Pop-up receita
+
+  # === Callbacks dos Modais === #
 @app.callback(
     Output("modal", "is_open"),
     [Input("open", "n_clicks"), Input("close", "n_clicks")],

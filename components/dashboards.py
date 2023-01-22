@@ -37,20 +37,22 @@ trace_piores = df.groupby('Nota')['Titulo'].sum().head(10).reset_index()
 # ==== CRIAÇÃO DOS GRÁFICOS ===== # 
 fig = px.bar(df, x=trace['Nota'].unique(), y=trace['Titulo'].unique())
 fig_02 = px.bar(df, x=trace_piores['Nota'].unique(), y=trace_piores['Titulo'].unique())
-
-fig.update_layout(height=280, xaxis={'title': None}, yaxis={'title': None})
-fig_02.update_layout(height=280, xaxis={'title': None}, yaxis={'title': None})
-
 fig_03 = px.pie(
         df_votos, values='Votos', 
         names='Nota', hole=.3)
 
+# ===== Graph Style ===== #
+
+fig.update_layout(height=280, xaxis={'title': None}, yaxis={'title': None})
+fig_02.update_layout(height=280, xaxis={'title': None}, yaxis={'title': None})
 fig_03.update_layout(height=280, xaxis={'title': None}, yaxis={'title': None})
 
 # =========  LAYOUT  =========== #
 layout = dbc.Col([
-       dbc.Row([
-        dbc.Col([
+       # 1° Linha
+        dbc.Row([
+            # 1° Coluna
+            dbc.Col([
                 dbc.Card([
                     html.Legend('DATASET UTILIZADO', style={'text-align':'center'}),
                     dash_table.DataTable(
@@ -67,8 +69,9 @@ layout = dbc.Col([
                 ], style={'margin-top': '15px', 'margin-left': '10px'}),
         ], width=12),
     ]), 
-
-       dbc.Row([
+        #2° Linha
+        dbc.Row([
+            #1° Coluna
             dbc.Col([
                 dbc.Card([
                     dbc.Tabs([
@@ -111,6 +114,7 @@ layout = dbc.Col([
                     ], style={'color':'white', 'background-color':'#181D3135'})
                 ], style={'margin-top': '10px', 'margin-left':'10px'})
         ], width=9),
+        # 2° Coluna
         dbc.Col([
             dbc.Card([
                 html.H1('Votos X Nota', className='text-primary', style={'padding':'15px', 'padding-left':'30px'}) ,
@@ -121,6 +125,8 @@ layout = dbc.Col([
 ])
 
 # =========  Callbacks  =========== #
+
+   # === Callbacks dos Modais === #
 @app.callback(
     Output("modal4", "is_open"),
     [Input("open4", "n_clicks"), Input("close4", "n_clicks")],

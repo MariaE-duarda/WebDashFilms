@@ -1,13 +1,13 @@
-from selenium import webdriver
-
-# importações para a respagem dos dados
+# ====== IMPORTAÇÕES ====== # 
 from bs4 import BeautifulSoup
 import requests 
 import pandas as pd
 
-# link que foi utilizado 
+# ====== LINK DO SITE ====== # 
 site = requests.get('https://m.imdb.com/feature/genre/?ref_=nv_ch_gr')
 
+
+# ====== FUNÇÃO PARA PEGAR OS LINKS / PÁGINA ===== #
 def pegar_link(reqs):
     all_links = []
     site = reqs.content
@@ -24,6 +24,7 @@ def pegar_link(reqs):
         all_links.append([link1, link2])
     return all_links
 
+# ==== FUNÇÃO PEGAR OS DADOS DE CADA FILME ==== #
 def pegar_dados(info):
     dados = []
     for lista_links in info:
@@ -76,6 +77,12 @@ def pegar_dados(info):
 
 link = pegar_link(site)
 dados1 = pegar_dados(link)
+
+# === CRIAÇÃO DO DATAFRAME ==== #
 df = pd.DataFrame(dados1, columns=['titulo', 'Ano lançamento', 'Descrição', 'Nota', 'Diretor', 'Votos', 'Genero'])
+
+# === DADOS PARA ARQUIVO .CSV === #
 df.to_csv("1400-filmes.csv", index=False)
+
+# == IMPRESSÃO DOS DADOS NO TERMINAL == # 
 print(df)
